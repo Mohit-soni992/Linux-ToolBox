@@ -1,0 +1,162 @@
+#!/bin/bash
+
+# simple linux project
+
+while true
+do
+echo "---------------------------"
+echo "   Linux Mini Toolkit"
+echo "---------------------------"
+echo "1. Show date & time"
+echo "2. List files"
+echo "3. Copy file"
+echo "4. Move file"
+echo "5. Delete file"
+echo "6. File permission"
+echo "7. Count files"
+echo "8. Search using grep"
+echo "9. Print table"
+echo "10. Create folder & move file"
+echo "11. Electricity bill"
+echo "12. Star pattern"
+echo "13. Exit"
+echo "Enter choice: "
+
+read ch
+
+case $ch in
+
+1)
+echo "Date and Time:"
+date
+;;
+
+2)
+echo "Files in current folder:"
+ls
+;;
+
+3)
+echo "Enter source file:"
+read f1
+echo "Enter destination file:"
+read f2
+cp $f1 $f2
+echo "File copied"
+;;
+
+4)
+echo "Enter file name:"
+read f1
+echo "Enter destination folder:"
+read f2
+mv $f1 $f2
+echo "File moved"
+;;
+
+5)
+echo "Enter file to delete:"
+read f1
+rm $f1
+echo "File deleted"
+;;
+
+6)
+echo "Enter file name:"
+read f
+echo "Enter permission (like 755):"
+read p
+chmod $p $f
+echo "Permission changed"
+;;
+
+7)
+echo "Total files:"
+ls | wc -l
+;;
+
+8)
+echo "Enter word to search:"
+read w
+echo "Enter file name:"
+read f
+grep $w $f
+;;
+
+9)
+echo "Enter number:"
+read n
+for ((i=1;i<=10;i++))
+do
+echo "$n x $i = $((n*i))"
+done
+;;
+
+10)
+echo "Enter folder name:"
+read d
+mkdir $d
+echo "Enter file to move:"
+read f
+mv $f $d
+echo "Done"
+;;
+
+11)
+echo "Enter customer number:"
+read custno 
+echo "Enter customer name:"
+read custname
+echo "Enter previous reading:"
+read preread
+echo "Enter current reading:"
+read curread
+
+unit=$(expr $curread - $preread)
+if [ $unit -le 100 ]
+then
+    charge=$unit
+elif [ $unit -le 200 ]
+then
+    charge=$(expr 100 + \( $unit - 100 \) \* 2)
+else
+    charge=$(expr 300 + \( $unit - 200 \) \* 3)
+fi
+
+echo "------------------------------"
+echo "      Electricity Bill"
+echo "------------------------------"
+echo "Customer Number: $custno"
+echo "Customer Name:   $custname"
+echo "Units Consumed:  $unit"
+echo "Total Charge:    ₹$charge"
+echo "------------------------------"
+;;
+
+12)
+echo "Enter rows:"
+read r
+
+for ((i=1;i<=r;i++))
+do
+for ((j=1;j<=i;j++))
+do
+echo -n "*"
+done
+echo
+done
+;;
+
+13)
+echo "Exiting..."
+exit
+;;
+
+*)
+echo "Wrong choice"
+;;
+
+esac
+
+echo ""
+done
